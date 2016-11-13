@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="giX-UC-q7J">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lXt-M6-VPY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -67,6 +68,98 @@
             </objects>
             <point key="canvasLocation" x="956" y="-439"/>
         </scene>
+        <!--Add Recipient View Controller-->
+        <scene sceneID="DJl-9B-L9R">
+            <objects>
+                <viewController id="QVv-49-ciB" customClass="AddRecipientViewController" customModule="SlapChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4uy-by-9xX"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bik-9D-XK2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wW5-L4-5lg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a recipient" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J3x-nR-5Dx">
+                                <rect key="frame" x="16" y="231" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P3i-6p-3NQ">
+                                <rect key="frame" x="16" y="283" width="343" height="30"/>
+                                <state key="normal" title="Save Recipient"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="QVv-49-ciB" eventType="touchUpInside" id="0dx-Rj-E86"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHw-iY-3Jz">
+                                <rect key="frame" x="16" y="353" width="343" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="QVv-49-ciB" eventType="touchUpInside" id="u4a-UQ-9Hx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="J3x-nR-5Dx" firstAttribute="leading" secondItem="wW5-L4-5lg" secondAttribute="leadingMargin" id="6vU-JD-kjA"/>
+                            <constraint firstItem="J3x-nR-5Dx" firstAttribute="trailing" secondItem="P3i-6p-3NQ" secondAttribute="trailing" id="7SO-Ph-Idt"/>
+                            <constraint firstItem="P3i-6p-3NQ" firstAttribute="trailing" secondItem="BHw-iY-3Jz" secondAttribute="trailing" id="D6v-Rt-pOb"/>
+                            <constraint firstItem="P3i-6p-3NQ" firstAttribute="leading" secondItem="BHw-iY-3Jz" secondAttribute="leading" id="EbR-AR-OKr"/>
+                            <constraint firstItem="J3x-nR-5Dx" firstAttribute="top" secondItem="4uy-by-9xX" secondAttribute="bottom" constant="211" id="G5S-5U-0a5"/>
+                            <constraint firstItem="P3i-6p-3NQ" firstAttribute="top" secondItem="J3x-nR-5Dx" secondAttribute="bottom" constant="22" id="SOO-xe-eIO"/>
+                            <constraint firstItem="J3x-nR-5Dx" firstAttribute="leading" secondItem="P3i-6p-3NQ" secondAttribute="leading" id="XLG-nm-nfV"/>
+                            <constraint firstItem="J3x-nR-5Dx" firstAttribute="trailing" secondItem="wW5-L4-5lg" secondAttribute="trailingMargin" id="iTy-gc-5c2"/>
+                            <constraint firstItem="BHw-iY-3Jz" firstAttribute="top" secondItem="P3i-6p-3NQ" secondAttribute="bottom" constant="40" id="jch-Ua-nZl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="J3x-nR-5Dx" id="VDP-n8-FKM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fus-Go-9Vf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="-421.43928035982015"/>
+        </scene>
+        <!--Recipient List Table View Controller-->
+        <scene sceneID="KE3-Ub-nBl">
+            <objects>
+                <tableViewController id="OvW-94-Yz1" customClass="RecipientListTableViewController" customModule="SlapChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jHn-gt-hEf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="EMS-EJ-MN7">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EMS-EJ-MN7" id="UiQ-kV-4Ox">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="XAu-n2-nEF" kind="show" identifier="showMessage" id="eJl-jZ-4MK"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OvW-94-Yz1" id="yZd-4f-cMP"/>
+                            <outlet property="delegate" destination="OvW-94-Yz1" id="96b-xA-mVc"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="niW-LW-GPF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bCP-ST-j1D">
+                            <connections>
+                                <segue destination="QVv-49-ciB" kind="presentation" id="frb-H9-i7Z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xZO-jQ-dgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1058.4000000000001" y="343.17841079460271"/>
+        </scene>
         <!--Table View Controller-->
         <scene sceneID="z6K-tG-zJe">
             <objects>
@@ -102,32 +195,32 @@
                     <navigationItem key="navigationItem" id="hPh-B6-6eu">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="SYd-iy-GQY">
                             <connections>
-                                <segue destination="o7X-q2-Eqs" kind="presentation" id="Lbo-YO-tXG"/>
+                                <segue destination="o7X-q2-Eqs" kind="presentation" identifier="addMsgSegue" id="Lbo-YO-tXG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ejz-2p-aJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="339"/>
+            <point key="canvasLocation" x="1895.2" y="338.68065967016497"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="GI5-Nd-ee2">
+        <scene sceneID="8Tc-vm-tgG">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="giX-UC-q7J" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lXt-M6-VPY" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="j3J-tc-WST">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="os3-iy-po1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="XAu-n2-nEF" kind="relationship" relationship="rootViewController" id="5jL-VR-B9o"/>
+                        <segue destination="OvW-94-Yz1" kind="relationship" relationship="rootViewController" id="x3h-wh-FfU"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cKw-uV-NVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jP8-cr-qyz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="339"/>
+            <point key="canvasLocation" x="119.2" y="343.17841079460271"/>
         </scene>
     </scenes>
 </document>

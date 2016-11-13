@@ -1,17 +1,10 @@
-//
-//  DataStore.swift
-//  SlapChat
-//
-//  Created by Ian Rahman on 7/16/16.
-//  Copyright © 2016 Flatiron School. All rights reserved.
-//
-
 import Foundation
 import CoreData
 
 class DataStore {
     
     var messages:[Message] = []
+    var recipients:[Recipient] = []
     
     static let sharedInstance = DataStore()
     
@@ -20,26 +13,10 @@ class DataStore {
     // MARK: - Core Data stack
     
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
+        
         let container = NSPersistentContainer(name: "SlapChat")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -54,16 +31,37 @@ class DataStore {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
     
+    
     // MARK: - Core Data Fetching support
     
+    
+    func fetchDataForRecipients(){
+        let context = persistentContainer.viewContext
+        let recipientsRequest: NSFetchRequest<Recipient> = Recipient.fetchRequest()
+        
+        do {
+            recipients = try context.fetch(recipientsRequest)
+            recipients.sort(by: { (recipient1, recipient2) -> Bool in
+                if let name1 = recipient1.name, let name2 = recipient2.name {
+                    return name1 < name2
+                    
+                }
+                return false
+            })
+            
+        } catch let error{
+            print("Error fetching data: \(error)")
+            recipients = []
+            
+        }
+    }
     func fetchData() {
         let context = persistentContainer.viewContext
         let messagesRequest: NSFetchRequest<Message> = Message.fetchRequest()
@@ -90,7 +88,7 @@ class DataStore {
     func generateTestData() {
         let context = persistentContainer.viewContext
         
-        let messageOne: Message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
+        let messageOne: Message = Message(context: context)
         
         messageOne.content = "Message 1"
         messageOne.createdAt = NSDate()
@@ -109,4 +107,14 @@ class DataStore {
         fetchData()
     }
     
+}
+
+extension Message {
+    static func newMessage(withCotent content:String, createdAt:NSData) -> Message{
+        let newMessage = Message(context: DataStore.sharedInstance.persistentContainer.viewContext)
+        
+        newMessage.content = content
+        newMessage.createdAt = NSDate()
+        return newMessage
+    }
 }
